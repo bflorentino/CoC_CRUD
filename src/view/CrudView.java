@@ -12,14 +12,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CrudView extends javax.swing.JFrame {
 
-    Database con = new Database();
-    Connection cn;
-    Statement st;
-    ResultSet rs;
-    DefaultTableModel model;
-    int id;
-    String selectedItem;
-    String getDataQuery = "SELECT * FROM wars;";
+    private Database con = new Database();
+    private Connection cn;
+    private Statement st;
+    private ResultSet rs;
+    private DefaultTableModel model;
+    private int id;
+    private String selectedItem;
+    private String getDataQuery = "SELECT * FROM wars;";
 
     public CrudView() {
         initComponents();
