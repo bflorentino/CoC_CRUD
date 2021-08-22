@@ -4,7 +4,10 @@ import config.Database;
 import java.util.Date;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import model.War;
 
 /**
  *
@@ -12,19 +15,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CrudView extends javax.swing.JFrame {
 
-    private Database con = new Database();
+    private Database database = new Database();
     private Connection cn;
     private Statement st;
     private ResultSet rs;
     private DefaultTableModel model;
     private int id;
+    private String filter = "ID";
     private String selectedItem;
-    private String getDataQuery = "SELECT * FROM wars;";
 
     public CrudView() {
         initComponents();
         setLocationRelativeTo(null);
-        setData(getDataQuery);
+        setData("");
     }
 
     /**
@@ -51,7 +54,6 @@ public class CrudView extends javax.swing.JFrame {
         deleteBtn = new javax.swing.JButton();
         loadBtn = new javax.swing.JButton();
         txtSearch = new javax.swing.JTextField();
-        searchBtn = new javax.swing.JButton();
         searchComboBox = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -127,7 +129,7 @@ public class CrudView extends javax.swing.JFrame {
                         .addComponent(idtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4))
                     .addComponent(DateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(firstClanNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,15 +173,14 @@ public class CrudView extends javax.swing.JFrame {
                 txtSearchActionPerformed(evt);
             }
         });
-
-        searchBtn.setText("SEARCH");
-        searchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBtnActionPerformed(evt);
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
             }
         });
 
         searchComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECT", "ID", "FIRST CLAN NAME", "SECOND CLAN NAME" }));
+        searchComboBox.setToolTipText("SELECT");
         searchComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchComboBoxActionPerformed(evt);
@@ -204,9 +205,7 @@ public class CrudView extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(searchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchBtn)))
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -215,9 +214,8 @@ public class CrudView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchBtn)
                     .addComponent(searchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addBtn)
                     .addComponent(updateBtn)
@@ -294,7 +292,7 @@ public class CrudView extends javax.swing.JFrame {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         add();
-        setData(getDataQuery);
+        setData("");
         clearTextbox();
     }//GEN-LAST:event_addBtnActionPerformed
 
@@ -318,13 +316,13 @@ public class CrudView extends javax.swing.JFrame {
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         update();
-        setData(getDataQuery);
+        setData("");
         clearTextbox();
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         delete();
-        setData(getDataQuery);
+        setData("");
         clearTextbox();
     }//GEN-LAST:event_deleteBtnActionPerformed
 
@@ -337,13 +335,14 @@ public class CrudView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchActionPerformed
 
-    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
-        search();
-    }//GEN-LAST:event_searchBtnActionPerformed
-
     private void searchComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchComboBoxActionPerformed
         selectedItem = searchComboBox.getSelectedItem().toString();
     }//GEN-LAST:event_searchComboBoxActionPerformed
+
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        // TODO add your handling code here:
+        setData(txtSearch.getText());
+    }//GEN-LAST:event_txtSearchKeyReleased
 
     /**
      * @param args the command line arguments
@@ -380,19 +379,18 @@ public class CrudView extends javax.swing.JFrame {
         });
     }
 
-    void setData(String query) {
+    void setData(String value) {
+        clearTable();
+        filter = setToFilter();
         try {
-            cn = con.getConnection();
-            st = cn.createStatement();
-            rs = st.executeQuery(query);
             Object[] war = new Object[4];
             model = (DefaultTableModel) dataTable.getModel();
-            while (rs.next()) {
-                war[0] = rs.getInt("ID");
-                war[1] = rs.getString("FIRST_CLAN_NAME");
-                war[2] = rs.getString("SECOND_CLAN_NAME");
-                war[3] = rs.getDate("START_ON");
-
+            List<War> wars = database.getWars(filter, value);
+            for (War n : wars) {
+                war[0] = n.getId();
+                war[1] = n.getFirstClanName();
+                war[2] = n.getSecondClanName();
+                war[3] = n.getStartOn();
                 model.addRow(war);
             }
             dataTable.setModel(model);
@@ -402,48 +400,19 @@ public class CrudView extends javax.swing.JFrame {
         }
     }
 
-    void search() {
-        try {
-            String query;
-            String searchValue = txtSearch.getText();
-            if (searchValue.equals("")) {
-                JOptionPane.showMessageDialog(null, "Empty fields");
-            } else {
-                if (selectedItem == null || selectedItem.equals("SELECT")) {
-                    JOptionPane.showMessageDialog(null, "Select a field to search");
-                }
-
-                if (selectedItem.equals("FIRST CLAN NAME")) {
-                    query = "SELECT * FROM wars WHERE FIRST_CLAN_NAME='" + searchValue + "'";
-                    cn = con.getConnection();
-                    st = cn.createStatement();
-                    rs = st.executeQuery(query);
-                    clearTable();
-                    setData(query);
-                }
-
-                if (selectedItem.equals("SECOND CLAN NAME")) {
-                    query = "SELECT * FROM wars WHERE SECOND_CLAN_NAME='" + searchValue + "'";
-                    cn = con.getConnection();
-                    st = cn.createStatement();
-                    rs = st.executeQuery(query);
-                    clearTable();
-                    setData(query);
-                }
-
-                if (selectedItem.equals("ID")) {
-                    query = "SELECT * FROM wars WHERE ID='" + searchValue + "'";
-                    cn = con.getConnection();
-                    st = cn.createStatement();
-                    rs = st.executeQuery(query);
-                    clearTable();
-                    setData(query);
-                }
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+    String setToFilter() {
+        if (selectedItem == "FIRST CLAN NAME") {
+            return "FIRST_CLAN_NAME";
         }
+
+        if (selectedItem == "SECOND CLAN NAME") {
+            return "SECOND_CLAN_NAME";
+        }
+
+        if (selectedItem=="START ON") {
+            return "START_ON";
+        }
+        return "ID";
     }
 
     void add() {
@@ -451,21 +420,21 @@ public class CrudView extends javax.swing.JFrame {
         String secondClanName = secondClanNameTxt.getText();
         Date date = DateChooser.getDate();
 
-        try {
-            if (firstClanName.equals("") || secondClanName.equals("") || date == null) {
-                JOptionPane.showMessageDialog(null, "Empty fields");
-                clearTable();
-                return;
-            }
-            java.sql.Date startOn = new java.sql.Date(date.getTime());
-            String query = "INSERT INTO wars(FIRST_CLAN_NAME,SECOND_CLAN_NAME,START_ON)values('" + firstClanName + "','" + secondClanName + "','" + startOn + "')";
-            cn = con.getConnection();
-            st = cn.createStatement();
-            st.executeUpdate(query);
+        if (firstClanName.equals("") || secondClanName.equals("") || date == null) {
+            JOptionPane.showMessageDialog(null, "Empty fields");
             clearTable();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            return;
         }
+
+        java.sql.Date startOn = new java.sql.Date(date.getTime());
+        War newWar = new War(
+                firstClanName,
+                secondClanName,
+                startOn
+        );
+
+        database.insertWar(newWar);
+        clearTable();
     }
 
     void update() {
@@ -473,43 +442,40 @@ public class CrudView extends javax.swing.JFrame {
         String secondClanName = secondClanNameTxt.getText();
         Date date = DateChooser.getDate();
 
-        try {
-            if (firstClanName.equals("") || secondClanName.equals("") || date == null) {
-                JOptionPane.showMessageDialog(null, "Empty fields");
-                clearTable();
-                return;
-            }
-            java.sql.Date startOn = new java.sql.Date(date.getTime());
-
-            String query = "UPDATE wars SET FIRST_CLAN_NAME='" + firstClanName + "',SECOND_CLAN_NAME='" + secondClanName + "',START_ON='" + startOn + "' WHERE ID=" + id;
-            cn = con.getConnection();
-            st = cn.createStatement();
-            st.executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "Updated");
-            clearTable();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+        int row = dataTable.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Please, select a war");
+            return;
         }
+
+        if (firstClanName.equals("") || secondClanName.equals("") || date == null) {
+            JOptionPane.showMessageDialog(null, "Empty fields");
+            clearTable();
+            return;
+        }
+
+        java.sql.Date startOn = new java.sql.Date(date.getTime());
+        War updatedWar = new War(
+                id,
+                firstClanName,
+                secondClanName,
+                startOn
+        );
+
+        database.updateWar(updatedWar);
+        clearTable();
     }
 
     void delete() {
         int selectedRow = dataTable.getSelectedRow();
 
-        String query = "DELETE FROM wars WHERE ID=" + id;
-        try {
-            if (selectedRow < 0) {
-                JOptionPane.showMessageDialog(null, "Select a row");
-                clearTable();
-            }
-            cn = con.getConnection();
-            st = cn.createStatement();
-            st.executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "Deleted");
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please, select a row");
             clearTable();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
         }
+        database.deleteWar(id);
+        JOptionPane.showMessageDialog(null, "Deleted");
+        clearTable();
     }
 
     void clearTable() {
@@ -526,7 +492,7 @@ public class CrudView extends javax.swing.JFrame {
 
     void load() {
         clearTable();
-        setData(getDataQuery);
+        setData("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -545,7 +511,6 @@ public class CrudView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton loadBtn;
-    private javax.swing.JButton searchBtn;
     private javax.swing.JComboBox<String> searchComboBox;
     private javax.swing.JTextField secondClanNameTxt;
     private javax.swing.JTextField txtSearch;
