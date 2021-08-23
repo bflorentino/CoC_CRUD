@@ -36,12 +36,8 @@ public class CrudViewTesting extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         cargarTabla("");
-        jComboBox1.setVisible(false);
-        jTextField1.setVisible(false);
-        jSpinner2.setVisible(false);
-        jComboBox2.setVisible(false);
-        jTextField2.setVisible(false);
-        jSpinner3.setVisible(false);
+        formatearSpinners();
+
     }
 
     /**
@@ -62,22 +58,17 @@ public class CrudViewTesting extends javax.swing.JFrame {
         fechaCalendar = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        detallesTxt = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
         Date date = new Date();
         SpinnerDateModel sm =
         new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
         horaInicioTxt = new javax.swing.JSpinner(sm);
-        jSpinner2 = new javax.swing.JSpinner();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
         SpinnerDateModel sm2 =
         new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
         horaFinalTxt = new javax.swing.JSpinner(sm2);
-        jSpinner3 = new javax.swing.JSpinner();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         addBtn = new javax.swing.JButton();
         updateBtn = new javax.swing.JButton();
@@ -118,110 +109,64 @@ public class CrudViewTesting extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel5.setText("Hora Inicio:");
 
-        detallesTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                detallesTxtActionPerformed(evt);
-            }
-        });
-
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel6.setText("Hora Final:");
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel7.setText("Detalles:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
-        jTextField1.setText("jTextField1");
-
         JSpinner.DateEditor de = new JSpinner.DateEditor(horaInicioTxt, "HH:mm:ss");
         horaInicioTxt.setEditor(de);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jTextField2.setText("jTextField2");
-
         JSpinner.DateEditor de2 = new JSpinner.DateEditor(horaFinalTxt, "HH:mm:ss");
         horaFinalTxt.setEditor(de2);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jTextArea1.setWrapStyleWord(true);
+        jScrollPane2.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92)
-                .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(257, 257, 257))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel3)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(detallesTxt)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(lugarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(16, 16, 16)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(horaInicioTxt)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(horaFinalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(fechaCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(31, 31, 31))))
+                        .addGap(5, 5, 5)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lugarTxt)
+                            .addComponent(horaInicioTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nombreTxt)))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(horaFinalTxt)
+                            .addComponent(fechaCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(22, 22, 22)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
@@ -235,14 +180,15 @@ public class CrudViewTesting extends javax.swing.JFrame {
                     .addComponent(horaInicioTxt)
                     .addComponent(horaFinalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lugarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addGap(5, 5, 5)
-                .addComponent(detallesTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lugarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel7))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Operaciones"));
@@ -299,23 +245,23 @@ public class CrudViewTesting extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))
-                    .addComponent(searchComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(loadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(37, 37, 37))
+                        .addGap(18, 18, 18)
+                        .addComponent(loadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(searchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,14 +270,19 @@ public class CrudViewTesting extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(addBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(updateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE))
-                    .addComponent(loadBtn))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(loadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Table"));
@@ -378,32 +329,26 @@ public class CrudViewTesting extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(27, 27, 27)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(13, 13, 13)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
+        jPanel1.getAccessibleContext().setAccessibleName("Formulario de datos");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void nombreTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreTxtActionPerformed
-
-    private void lugarTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lugarTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lugarTxtActionPerformed
 
     private void dataTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dataTableMouseClicked
         int row = dataTable.getSelectedRow();
@@ -416,25 +361,17 @@ public class CrudViewTesting extends javax.swing.JFrame {
         String nombre = (String) dataTable.getValueAt(row, 1);
         Date fecha = (Date) dataTable.getValueAt(row, 2);
         String lugar = (String) dataTable.getValueAt(row, 3);
-        Time horaFinal = (Time) dataTable.getValueAt(row, 4);
-        Time horaInicio = (Time) dataTable.getValueAt(row, 5);
+        Time horaInicio = (Time) dataTable.getValueAt(row, 4);
+        Time horaFinal = (Time) dataTable.getValueAt(row, 5);
         String detalles = (String) dataTable.getValueAt(row, 6);
         
         nombreTxt.setText(nombre);
         lugarTxt.setText(lugar);
         horaFinalTxt.setValue(horaFinal);
         horaInicioTxt.setValue(horaInicio);
-        detallesTxt.setText(detalles);
+        jTextArea1.setText(detalles);
         fechaCalendar.setDate(fecha);    
     }//GEN-LAST:event_dataTableMouseClicked
-
-    private void detallesTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detallesTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_detallesTxtActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void searchComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchComboBoxActionPerformed
         valorComboBox = searchComboBox.getSelectedItem().toString();
@@ -457,20 +394,26 @@ public class CrudViewTesting extends javax.swing.JFrame {
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         eliminar();
         cargarTabla("");
-        limpiarTextbox();
+ 
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         update();
         cargarTabla("");
-        limpiarTextbox();
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         insertar();
         cargarTabla("");
-        limpiarTextbox();
     }//GEN-LAST:event_addBtnActionPerformed
+
+    private void lugarTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lugarTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lugarTxtActionPerformed
+
+    private void nombreTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreTxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -486,7 +429,7 @@ public class CrudViewTesting extends javax.swing.JFrame {
         });
     }
 
-    private void cargarTabla(String valor) {
+  private void cargarTabla(String valor) {
         limpiarTabla();
         filtro = asignarValorParaFiltrar();
         try {
@@ -527,77 +470,86 @@ public class CrudViewTesting extends javax.swing.JFrame {
 
     private void insertar() {
 
-        String horaInicio = formater.format(horaInicioTxt.getValue());        
+        String horaInicio = formater.format(horaInicioTxt.getValue());
         String horaFinal = formater.format(horaFinalTxt.getValue());
         String nombre = nombreTxt.getText();
         String lugar = lugarTxt.getText();
-        String detalles = detallesTxt.getText();
+        String detalles = jTextArea1.getText();
         Date date = fechaCalendar.getDate();
 
         if (nombre.equals("") || lugar.equals("") || horaFinal.equals("") || date == null
                 || horaInicio.equals("") || detalles.equals("")) {
-            
+
             JOptionPane.showMessageDialog(null, "Favor de llenar los campos");
-            limpiarTabla();
-            return;
-        }
+        } 
+        else  {
+            java.sql.Date fecha = new java.sql.Date(date.getTime());
 
-        java.sql.Date fecha = new java.sql.Date(date.getTime());
-        
-        Evento nuevoEvento = new Evento(
-                nombre,
-                Time.valueOf(horaInicio),
-                Time.valueOf(horaFinal),
-                lugar,
-                fecha,
-                detalles
-        );
+            if (validarHora(Time.valueOf(horaInicio), Time.valueOf(horaFinal))) {
 
-        if (database.insertarEvento(nuevoEvento)) {
-            JOptionPane.showMessageDialog(null, "Se insertó exitosamente");
-        } else {
-            JOptionPane.showMessageDialog(null, "Hubo un error, inténtelo ");
+                Evento nuevoEvento = new Evento(
+                        nombre,
+                        Time.valueOf(horaInicio),
+                        Time.valueOf(horaFinal),
+                        lugar,
+                        fecha,
+                        detalles
+                );
+
+                if (database.insertarEvento(nuevoEvento)) {
+                    JOptionPane.showMessageDialog(null, "Se insertó exitosamente");
+                    limpiarTextbox();
+                } 
+                else {
+                    JOptionPane.showMessageDialog(null, "Hubo un error al insertar los registros.");
+                }
+            }
         }
-    
-        limpiarTabla();
+         limpiarTabla();
     }
 
     private void update() {
+        
         String nombre = nombreTxt.getText();
         String lugar = lugarTxt.getText();
         String horaInicio = formater.format(horaInicioTxt.getValue());        
         String horaFinal = formater.format(horaFinalTxt.getValue());
-        String detalles = detallesTxt.getText();
+        String detalles = jTextArea1.getText();
         Date date = fechaCalendar.getDate();
         
         int row = dataTable.getSelectedRow();
         if (row < 0) {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione un registro");
-            return;
         }
 
-        if (nombre.equals("") || lugar.equals("") || horaFinal.equals("") || date == null
+       else if (nombre.equals("") || lugar.equals("") || horaFinal.equals("") || date == null
                 || horaInicio.equals("") || detalles.equals("")) {
             
             JOptionPane.showMessageDialog(null, "Favor de llenar los campos");
-            limpiarTabla();
-            return;
         }
+       
+        else if (validarHora(Time.valueOf(horaInicio), Time.valueOf(horaFinal))) {
 
-
-        java.sql.Date fecha = new java.sql.Date(date.getTime());
-        Evento eventoActualizado = new Evento(
-                id,
-                nombre,
-                Time.valueOf(horaInicio),
-                Time.valueOf(horaFinal),
-                lugar,
-                fecha,
-                detalles
-        );
-
-        database.actualizarEvento(eventoActualizado);
-        limpiarTabla();
+            java.sql.Date fecha = new java.sql.Date(date.getTime());
+            Evento eventoActualizado = new Evento(
+                    id,
+                    nombre,
+                    Time.valueOf(horaInicio),
+                    Time.valueOf(horaFinal),
+                    lugar,
+                    fecha,
+                    detalles
+            );
+            
+            if (database.actualizarEvento(eventoActualizado)){
+                JOptionPane.showMessageDialog(null, "Evento actualizado");
+                limpiarTextbox();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Hubo un error al actualizar el evento");
+            }
+        }
+         limpiarTabla();
     }
 
     private void eliminar() {
@@ -605,11 +557,13 @@ public class CrudViewTesting extends javax.swing.JFrame {
 
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione un registro");
-            limpiarTabla();
-            return;
         }
-        database.eliminarEvento(id);
-        JOptionPane.showMessageDialog(null, "Eliminado");
+        
+        else if ( JOptionPane.showConfirmDialog(null, "Esta seguro de que desea eliminar este registro?") == 0) {
+                database.eliminarEvento(id);
+                JOptionPane.showMessageDialog(null, "Eliminado");
+                limpiarTextbox();
+            }
         limpiarTabla();
     }
 
@@ -625,26 +579,51 @@ public class CrudViewTesting extends javax.swing.JFrame {
         lugarTxt.setText("");
         horaFinalTxt.setValue(Time.valueOf(time.format(formatter)));
         horaInicioTxt.setValue(Time.valueOf(time.format(formatter)));
-        detallesTxt.setText("");
+        jTextArea1.setText("");
         fechaCalendar.setDate(null);
+        
+        formatearSpinners();
     }
 
     private void recargar() {
         limpiarTabla();
         cargarTabla("");
     }
+    
+    private void formatearSpinners(){
+        Date date = new Date();
+        SpinnerDateModel sm = new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
+        SpinnerDateModel sm2 = new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
+        horaInicioTxt.setModel(sm);
+        horaFinalTxt.setModel(sm2);
+        JSpinner.DateEditor de = new JSpinner.DateEditor(horaInicioTxt, "HH:mm:ss");
+        JSpinner.DateEditor de2 = new JSpinner.DateEditor(horaFinalTxt, "HH:mm:ss");
+        horaInicioTxt.setEditor(de);
+        horaFinalTxt.setEditor(de2);
+        ((JSpinner.DefaultEditor) horaInicioTxt.getEditor()).getTextField().setEditable(false);
+        ((JSpinner.DefaultEditor) horaFinalTxt.getEditor()).getTextField().setEditable(false);
+    }
+    
+    private boolean validarHora(Time h1, Time h2){
+        
+        if (h1.before(h2)){
+            return true;
+        }
+        else{
+             JOptionPane.showMessageDialog(null, "La hora de inicio debe de ser anterior a la hora final");
+            return false;
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
     private javax.swing.JTable dataTable;
     private javax.swing.JButton deleteBtn;
-    private javax.swing.JTextField detallesTxt;
     private com.toedter.calendar.JDateChooser fechaCalendar;
     private javax.swing.JSpinner horaFinalTxt;
     private javax.swing.JSpinner horaInicioTxt;
     private com.toedter.calendar.JCalendar jCalendar1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -655,10 +634,8 @@ public class CrudViewTesting extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton loadBtn;
     private javax.swing.JTextField lugarTxt;
     private javax.swing.JTextField nombreTxt;

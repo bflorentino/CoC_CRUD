@@ -19,7 +19,7 @@ public class Database {
 
     private String url = "jdbc:mysql://localhost:3306/proyecto_final";
     private String username = "root";
-    private String password = "admin";
+    private String password = "";
     private Connection con;
     private PreparedStatement preparedStatement = null;
     private ResultSet rs;
