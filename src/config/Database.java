@@ -6,7 +6,7 @@
 package config;
 
 import java.sql.*;
-import model.War;
+//import model.War;
 import java.util.ArrayList;
 import java.util.List;
 import model.Evento;
@@ -17,9 +17,9 @@ import model.Evento;
  */
 public class Database {
 
-    private String url = "jdbc:mysql://localhost:3307/proyecto_final";
+    private String url = "jdbc:mysql://localhost:3306/proyecto_final";
     private String username = "root";
-    private String password = "";
+    private String password = "admin";
     private Connection con;
     private PreparedStatement preparedStatement = null;
     private ResultSet rs;
