@@ -9,6 +9,9 @@ import java.util.Calendar;
 import java.util.List;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.table.DefaultTableModel;
 import model.Evento;
 import model.War;
@@ -20,6 +23,7 @@ import model.War;
 public class CrudView extends javax.swing.JFrame {
 
     private Database database = new Database();
+    private SimpleDateFormat formater = new SimpleDateFormat("HH:mm:ss");
     private Connection cn;
     private Statement st;
     private ResultSet rs;
@@ -35,6 +39,9 @@ public class CrudView extends javax.swing.JFrame {
         jComboBox1.setVisible(false);
         jTextField1.setVisible(false);
         jSpinner2.setVisible(false);
+        jComboBox2.setVisible(false);
+        jTextField2.setVisible(false);
+        jSpinner3.setVisible(false);
     }
 
     /**
@@ -57,7 +64,6 @@ public class CrudView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         detallesTxt = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        horaFinalTxt = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
@@ -66,6 +72,12 @@ public class CrudView extends javax.swing.JFrame {
         new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
         horaInicioTxt = new javax.swing.JSpinner(sm);
         jSpinner2 = new javax.swing.JSpinner();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jTextField2 = new javax.swing.JTextField();
+        SpinnerDateModel sm2 =
+        new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
+        horaFinalTxt = new javax.swing.JSpinner(sm2);
+        jSpinner3 = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         addBtn = new javax.swing.JButton();
         updateBtn = new javax.swing.JButton();
@@ -110,12 +122,6 @@ public class CrudView extends javax.swing.JFrame {
 
         jLabel6.setText("Hora final");
 
-        horaFinalTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                horaFinalTxtActionPerformed(evt);
-            }
-        });
-
         jLabel7.setText("Detalles");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -130,36 +136,42 @@ public class CrudView extends javax.swing.JFrame {
         JSpinner.DateEditor de = new JSpinner.DateEditor(horaInicioTxt, "HH:mm:ss");
         horaInicioTxt.setEditor(de);
 
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jTextField2.setText("jTextField2");
+
+        JSpinner.DateEditor de2 = new JSpinner.DateEditor(horaFinalTxt, "HH:mm:ss");
+        horaFinalTxt.setEditor(de2);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(horaInicioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(61, 61, 61))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(horaInicioTxt))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(fechaCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(horaFinalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(horaFinalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(71, 71, 71)
@@ -170,6 +182,12 @@ public class CrudView extends javax.swing.JFrame {
                                 .addComponent(detallesTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(34, 34, 34))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92)
                         .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,21 +202,25 @@ public class CrudView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
                         .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2))
                     .addComponent(fechaCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(horaFinalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(horaInicioTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
-                .addGap(33, 33, 33)
+                    .addComponent(horaInicioTxt)
+                    .addComponent(horaFinalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(lugarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,7 +287,7 @@ public class CrudView extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(updateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
@@ -387,8 +409,8 @@ public class CrudView extends javax.swing.JFrame {
         
         nombreTxt.setText(nombre);
         lugarTxt.setText(lugar);
-        horaFinalTxt.setText(horaFinal.toString());
-        horaInicioTxt.setEditor(horaInicio);
+        horaFinalTxt.setValue(horaFinal);
+        horaInicioTxt.setValue(horaInicio);
         detallesTxt.setText(detalles);
         fechaCalendar.setDate(fecha);    
     }//GEN-LAST:event_dataTableMouseClicked
@@ -426,10 +448,6 @@ public class CrudView extends javax.swing.JFrame {
     private void detallesTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detallesTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_detallesTxtActionPerformed
-
-    private void horaFinalTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaFinalTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_horaFinalTxtActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
@@ -499,7 +517,7 @@ public class CrudView extends javax.swing.JFrame {
             return "FECHA";
         }
 
-        if (valorComboBox == "Nombre del evento") {
+        if (valorComboBox == "Nombre") {
             return "NOMBRE";
         }
 
@@ -510,10 +528,11 @@ public class CrudView extends javax.swing.JFrame {
     }
 
     private void insertar() {
+
+        String horaInicio = formater.format(horaInicioTxt.getValue());        
+        String horaFinal = formater.format(horaFinalTxt.getValue());
         String nombre = nombreTxt.getText();
         String lugar = lugarTxt.getText();
-        String horaFinal = horaFinalTxt.getText();
-        String horaInicio = horaInicioTxt.getText();
         String detalles = detallesTxt.getText();
         Date date = fechaCalendar.getDate();
 
@@ -548,22 +567,22 @@ public class CrudView extends javax.swing.JFrame {
     private void update() {
         String nombre = nombreTxt.getText();
         String lugar = lugarTxt.getText();
-        String horaFinal = horaFinalTxt.getText();
-        String horaInicio = horaInicioTxt.getText();
+        String horaInicio = formater.format(horaInicioTxt.getValue());        
+        String horaFinal = formater.format(horaFinalTxt.getValue());
         String detalles = detallesTxt.getText();
         Date date = fechaCalendar.getDate();
+        
+        int row = dataTable.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un registro");
+            return;
+        }
 
         if (nombre.equals("") || lugar.equals("") || horaFinal.equals("") || date == null
                 || horaInicio.equals("") || detalles.equals("")) {
             
             JOptionPane.showMessageDialog(null, "Favor de llenar los campos");
             limpiarTabla();
-            return;
-        }
-
-        int row = dataTable.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(null, "Por favor, seleccione un registro");
             return;
         }
 
@@ -601,10 +620,13 @@ public class CrudView extends javax.swing.JFrame {
     }
 
     private void limpiarTextbox() {
+        LocalTime time = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
         nombreTxt.setText("");
         lugarTxt.setText("");
-        horaFinalTxt.setText("");
-        horaInicioTxt.setText("");
+        horaFinalTxt.setValue(Time.valueOf(time.format(formatter)));
+        horaInicioTxt.setValue(Time.valueOf(time.format(formatter)));
         detallesTxt.setText("");
         fechaCalendar.setDate(null);
     }
@@ -620,10 +642,11 @@ public class CrudView extends javax.swing.JFrame {
     private javax.swing.JButton deleteBtn;
     private javax.swing.JTextField detallesTxt;
     private com.toedter.calendar.JDateChooser fechaCalendar;
-    private javax.swing.JTextField horaFinalTxt;
+    private javax.swing.JSpinner horaFinalTxt;
     private javax.swing.JSpinner horaInicioTxt;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -635,7 +658,9 @@ public class CrudView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner2;
+    private javax.swing.JSpinner jSpinner3;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JButton loadBtn;
     private javax.swing.JTextField lugarTxt;
     private javax.swing.JTextField nombreTxt;
