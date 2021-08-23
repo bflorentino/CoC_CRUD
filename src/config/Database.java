@@ -9,6 +9,7 @@ import java.sql.*;
 import model.War;
 import java.util.ArrayList;
 import java.util.List;
+import model.Evento;
 
 /**
  *
@@ -16,141 +17,144 @@ import java.util.List;
  */
 public class Database {
 
-    private String url = "jdbc:mysql://localhost:3307/clash_of_clans";
+    private String url = "jdbc:mysql://localhost:3307/proyecto_final";
     private String username = "root";
     private String password = "";
     private Connection con;
-    private Statement st;
+    private PreparedStatement preparedStatement = null;
     private ResultSet rs;
 
-    public void connect() {
+    private boolean conectar() {
+
         try {
             con = DriverManager.getConnection(url, username, password);
-            st = con.createStatement();
-            System.out.println("connected");        
+            return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void disconnect() {
+    private boolean desconectar() {
+
         try {
 
             if (con != null) {
                 con.close();
             }
-
-            System.out.println("disconnected");
+            return true;
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            return false;
         }
     }
 
-    public void insertWar(War war) {
-        connect();
+    public boolean insertarEvento(Evento evento) {
 
-        String sql = "INSERT INTO wars(FIRST_CLAN_NAME,SECOND_CLAN_NAME,START_ON) "
-                + "VALUES('" + war.getFirstClanName() + "', "
-                + "'" + war.getSecondClanName() + "', '"
-                + war.getStartOn() + "')";
+        boolean insertado = false;
 
-        try {
-            st.executeUpdate(sql);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        String query = "INSERT INTO EVENTOS" + "(NOMBRE," + " HORA_INICIO," + " HORA_FINAL," + "LUGAR," + "FECHA,"
+                + "DETALLES)" + " VALUES (?, ?, ?, ?, ?, ?)";
+
+        if (conectar()) {
+
+            try {
+                preparedStatement = con.prepareStatement(query);
+                preparedStatement.setString(1, evento.getNombreEvento());
+                preparedStatement.setTime(2, evento.getHoraInicio());
+                preparedStatement.setTime(3, evento.getHoraFinal());
+                preparedStatement.setString(4, evento.getLugar());
+                preparedStatement.setDate(5, evento.getFecha());
+                preparedStatement.setString(6, evento.getDetalles());
+
+                preparedStatement.executeUpdate();
+                insertado = true;
+
+            } catch (SQLException ex) {
+                insertado = false;
+            } finally {
+                desconectar();
+            }
         }
-
-        disconnect();
+        return insertado;
     }
     
-    public void updateWar(War war) {
-        connect();
+    
 
-        String sql = "UPDATE wars SET " + 
-                "FIRST_CLAN_NAME='" + war.getFirstClanName() + 
-                "',SECOND_CLAN_NAME='" + war.getSecondClanName() + 
-                "',START_ON='" + war.getStartOn() + 
-                "' WHERE ID=" + war.getId();
+    public void eliminarEvento(int id) {
 
-        try {
-            st.executeUpdate(sql);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        String query = "DELETE FROM EVENTOS WHERE ID = ?";
+
+        if (conectar()) {
+
+            try {
+                preparedStatement = con.prepareStatement(query);
+                preparedStatement.setInt(1, id);
+
+                preparedStatement.executeUpdate();
+            } catch (SQLException ex) {
+
+            } finally {
+                desconectar();
+            }
         }
-
-        disconnect();
     }
     
-    public void deleteWar(int id) {
-        connect();
+    
+    public boolean actualizarEvento(Evento evento) {
 
-        String sql = "DELETE FROM wars WHERE ID= " + id; 
+        String query = "UPDATE EVENTOS SET NOMBRE = ? ,HORA_INICIO = ? ,HORA_FINAL = ? ,LUGAR = ? ,FECHA = ? ,DETALLES = ? WHERE ID = "
+                + evento.getId();
+        boolean actualizado = false;
 
-        try {
-            st.executeUpdate(sql);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        if (conectar()) {
 
-        disconnect();
-    }
+            try {
+                preparedStatement = con.prepareStatement(query);
 
-    public War getWarById(int id) {
-        connect();
+                preparedStatement.setString(1, evento.getNombreEvento());
+                preparedStatement.setTime(2, evento.getHoraInicio());
+                preparedStatement.setTime(3, evento.getHoraFinal());
+                preparedStatement.setString(4, evento.getLugar());
+                preparedStatement.setDate(5, evento.getFecha());
+                preparedStatement.setString(6, evento.getDetalles());
 
-        War war = null;
+                preparedStatement.executeUpdate();
 
-        String sql = "SELECT * "
-                + "FROM wars WHERE id = " + id;
+                actualizado = true;
 
-        try {
-            rs = st.executeQuery(sql);
-
-            if (rs.next()) {
-                war = new War(
-                        rs.getInt("ID"),
-                        rs.getString("FIRST_CLAN_NAME"),
-                        rs.getString("SECOND_CLAN_NAME"),
-                        rs.getDate("START_ON")
-                );
+            } catch (SQLException ex) {
+                actualizado = false;
+            } finally {
+                desconectar();
             }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         }
-
-        disconnect();
-
-        return war;
+        return actualizado;
     }
+    
+    public List<Evento> getEventos(String campo, String valor) {
 
-    public List<War> getWars(String toSearch, String value) {
-        List<War> wars = new ArrayList<>();
+        List<Evento> eventos = new ArrayList<>();
 
-        connect();
+        String query = "SELECT * FROM EVENTOS " + 
+                "WHERE " + campo + " LIKE '%" + valor + "%' ORDER BY FECHA";
+        
 
-        String sql = "SELECT * FROM wars " + 
-                "WHERE " + toSearch + " LIKE '%" + value + "%'";
+        if (conectar()) {
+            try {
+                preparedStatement = con.prepareStatement(query);
+                rs = preparedStatement.executeQuery();
 
-        try {
-            rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    eventos.add(new Evento(rs.getInt("id"), rs.getString("Nombre"), rs.getTime("Hora_Inicio"),
+                            rs.getTime("Hora_Final"), rs.getString("Lugar"), rs.getDate("Fecha"),
+                            rs.getString("Detalles")));
+                }
+            } catch (SQLException ex) {
 
-            while (rs.next()) {
-                wars.add(new War(
-                        rs.getInt("ID"),
-                        rs.getString("FIRST_CLAN_NAME"),
-                        rs.getString("SECOND_CLAN_NAME"),
-                        rs.getDate("START_ON"))
-                );
+            } finally {
+                desconectar();
             }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         }
-
-        disconnect();
-
-        return wars;
+        return eventos;
     }
 
 }

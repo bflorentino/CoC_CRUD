@@ -5,8 +5,12 @@ import java.util.Date;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel;
+import model.Evento;
 import model.War;
 
 /**
@@ -21,13 +25,16 @@ public class CrudView extends javax.swing.JFrame {
     private ResultSet rs;
     private DefaultTableModel model;
     private int id;
-    private String filter = "ID";
-    private String selectedItem;
+    private String filtro = "ID";
+    private String valorComboBox;
 
     public CrudView() {
         initComponents();
         setLocationRelativeTo(null);
-        setData("");
+        cargarTabla("");
+        jComboBox1.setVisible(false);
+        jTextField1.setVisible(false);
+        jSpinner2.setVisible(false);
     }
 
     /**
@@ -39,15 +46,26 @@ public class CrudView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jCalendar1 = new com.toedter.calendar.JCalendar();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        idtxt = new javax.swing.JTextField();
-        firstClanNameTxt = new javax.swing.JTextField();
-        secondClanNameTxt = new javax.swing.JTextField();
-        DateChooser = new com.toedter.calendar.JDateChooser();
+        nombreTxt = new javax.swing.JTextField();
+        lugarTxt = new javax.swing.JTextField();
+        fechaCalendar = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        detallesTxt = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        horaFinalTxt = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
+        Date date = new Date();
+        SpinnerDateModel sm =
+        new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
+        horaInicioTxt = new javax.swing.JSpinner(sm);
+        jSpinner2 = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         addBtn = new javax.swing.JButton();
         updateBtn = new javax.swing.JButton();
@@ -64,104 +82,155 @@ public class CrudView extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Data"));
         jPanel1.setToolTipText("Datos");
 
-        jLabel1.setText("ID");
+        jLabel2.setText("Nombre");
 
-        jLabel2.setText("First clan name");
+        jLabel3.setText("Lugar");
 
-        jLabel3.setText("Second clan name");
-
-        idtxt.setEditable(false);
-        idtxt.setEnabled(false);
-        idtxt.addActionListener(new java.awt.event.ActionListener() {
+        nombreTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idtxtActionPerformed(evt);
+                nombreTxtActionPerformed(evt);
             }
         });
 
-        firstClanNameTxt.addActionListener(new java.awt.event.ActionListener() {
+        lugarTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                firstClanNameTxtActionPerformed(evt);
+                lugarTxtActionPerformed(evt);
             }
         });
 
-        secondClanNameTxt.addActionListener(new java.awt.event.ActionListener() {
+        jLabel4.setText("Fecha");
+
+        jLabel5.setText("Hora inicio");
+
+        detallesTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                secondClanNameTxtActionPerformed(evt);
+                detallesTxtActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Start On");
+        jLabel6.setText("Hora final");
+
+        horaFinalTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                horaFinalTxtActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Detalles");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setText("jTextField1");
+
+        JSpinner.DateEditor de = new JSpinner.DateEditor(horaInicioTxt, "HH:mm:ss");
+        horaInicioTxt.setEditor(de);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(idtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                    .addComponent(firstClanNameTxt))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(horaInicioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(61, 61, 61))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fechaCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(horaFinalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(71, 71, 71)
+                                .addComponent(lugarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(detallesTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(34, 34, 34))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(DateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(secondClanNameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(idtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
-                    .addComponent(DateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
+                    .addComponent(fechaCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(firstClanNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(secondClanNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(34, 34, 34))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(horaFinalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(horaInicioTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(lugarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(detallesTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Operations"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Operaciones"));
 
-        addBtn.setText("ADD");
+        addBtn.setText("AGREGAR");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
             }
         });
 
-        updateBtn.setText("UPDATE");
+        updateBtn.setText("ACTUALIZAR");
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateBtnActionPerformed(evt);
             }
         });
 
-        deleteBtn.setText("DELETE");
+        deleteBtn.setText("ELIMINAR");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteBtnActionPerformed(evt);
             }
         });
 
-        loadBtn.setText("LOAD");
+        loadBtn.setText("RECARGAR");
         loadBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loadBtnActionPerformed(evt);
@@ -179,7 +248,7 @@ public class CrudView extends javax.swing.JFrame {
             }
         });
 
-        searchComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECT", "ID", "FIRST CLAN NAME", "SECOND CLAN NAME" }));
+        searchComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar por", "Fecha", "Nombre", "Detalles" }));
         searchComboBox.setToolTipText("SELECT");
         searchComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,20 +261,21 @@ public class CrudView extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                        .addComponent(updateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(loadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(searchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(searchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtSearch)
+                    .addComponent(loadBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -231,9 +301,17 @@ public class CrudView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "FIRST CLAN NAME", "SECOND CLAN NAME", "START ON"
+                "Id", "Nombre", "Fecha", "Lugar", "Hora inicio", "Hora final", "Detalles"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         dataTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dataTableMouseClicked(evt);
@@ -268,7 +346,7 @@ public class CrudView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -278,57 +356,58 @@ public class CrudView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void idtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idtxtActionPerformed
+    private void nombreTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_idtxtActionPerformed
+    }//GEN-LAST:event_nombreTxtActionPerformed
 
-    private void firstClanNameTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstClanNameTxtActionPerformed
+    private void lugarTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lugarTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_firstClanNameTxtActionPerformed
-
-    private void secondClanNameTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondClanNameTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_secondClanNameTxtActionPerformed
+    }//GEN-LAST:event_lugarTxtActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        add();
-        setData("");
-        clearTextbox();
+        insertar();
+        cargarTabla("");
+        limpiarTextbox();
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void dataTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dataTableMouseClicked
         int row = dataTable.getSelectedRow();
         if (row < 0) {
-            JOptionPane.showMessageDialog(null, "War not selected");
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un registro");
             return;
         }
-
+        
         id = Integer.parseInt((String) dataTable.getValueAt(row, 0).toString());
-        String firstClanName = (String) dataTable.getValueAt(row, 1);
-        String secondClanName = (String) dataTable.getValueAt(row, 2);
-        Date startOn = (Date) dataTable.getValueAt(row, 3);
-
-        idtxt.setText("" + id);
-        firstClanNameTxt.setText(firstClanName);
-        secondClanNameTxt.setText(secondClanName);
-        DateChooser.setDate(startOn);
+        String nombre = (String) dataTable.getValueAt(row, 1);
+        Date fecha = (Date) dataTable.getValueAt(row, 2);
+        String lugar = (String) dataTable.getValueAt(row, 3);
+        Time horaFinal = (Time) dataTable.getValueAt(row, 4);
+        Time horaInicio = (Time) dataTable.getValueAt(row, 5);
+        String detalles = (String) dataTable.getValueAt(row, 6);
+        
+        nombreTxt.setText(nombre);
+        lugarTxt.setText(lugar);
+        horaFinalTxt.setText(horaFinal.toString());
+        horaInicioTxt.setEditor(horaInicio);
+        detallesTxt.setText(detalles);
+        fechaCalendar.setDate(fecha);    
     }//GEN-LAST:event_dataTableMouseClicked
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         update();
-        setData("");
-        clearTextbox();
+        cargarTabla("");
+        limpiarTextbox();
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        delete();
-        setData("");
-        clearTextbox();
+        eliminar();
+        cargarTabla("");
+        limpiarTextbox();
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
-        load();
-        clearTextbox();
+        recargar();
+        limpiarTextbox();
     }//GEN-LAST:event_loadBtnActionPerformed
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
@@ -336,13 +415,25 @@ public class CrudView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSearchActionPerformed
 
     private void searchComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchComboBoxActionPerformed
-        selectedItem = searchComboBox.getSelectedItem().toString();
+        valorComboBox = searchComboBox.getSelectedItem().toString();
     }//GEN-LAST:event_searchComboBoxActionPerformed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         // TODO add your handling code here:
-        setData(txtSearch.getText());
+        cargarTabla(txtSearch.getText());
     }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void detallesTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detallesTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_detallesTxtActionPerformed
+
+    private void horaFinalTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaFinalTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_horaFinalTxtActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -379,19 +470,22 @@ public class CrudView extends javax.swing.JFrame {
         });
     }
 
-    void setData(String value) {
-        clearTable();
-        filter = setToFilter();
+    private void cargarTabla(String valor) {
+        limpiarTabla();
+        filtro = asignarValorParaFiltrar();
         try {
-            Object[] war = new Object[4];
+            Object[] evento = new Object[7];
             model = (DefaultTableModel) dataTable.getModel();
-            List<War> wars = database.getWars(filter, value);
-            for (War n : wars) {
-                war[0] = n.getId();
-                war[1] = n.getFirstClanName();
-                war[2] = n.getSecondClanName();
-                war[3] = n.getStartOn();
-                model.addRow(war);
+            List<Evento> eventos = database.getEventos(filtro, valor);
+            for (Evento n : eventos) {
+                evento[0] = n.getId();
+                evento[1] = n.getNombreEvento();
+                evento[2] = n.getFecha();
+                evento[3] = n.getLugar();
+                evento[4] = n.getHoraInicio();
+                evento[5] = n.getHoraFinal();
+                evento[6] = n.getDetalles();
+                model.addRow(evento);
             }
             dataTable.setModel(model);
 
@@ -400,119 +494,152 @@ public class CrudView extends javax.swing.JFrame {
         }
     }
 
-    String setToFilter() {
-        if (selectedItem == "FIRST CLAN NAME") {
-            return "FIRST_CLAN_NAME";
+    private String asignarValorParaFiltrar() {
+        if (valorComboBox == "Fecha") {
+            return "FECHA";
         }
 
-        if (selectedItem == "SECOND CLAN NAME") {
-            return "SECOND_CLAN_NAME";
+        if (valorComboBox == "Nombre del evento") {
+            return "NOMBRE";
         }
 
-        if (selectedItem=="START ON") {
-            return "START_ON";
+        if (valorComboBox == "Detalles") {
+            return "DETALLES";
         }
         return "ID";
     }
 
-    void add() {
-        String firstClanName = firstClanNameTxt.getText();
-        String secondClanName = secondClanNameTxt.getText();
-        Date date = DateChooser.getDate();
+    private void insertar() {
+        String nombre = nombreTxt.getText();
+        String lugar = lugarTxt.getText();
+        String horaFinal = horaFinalTxt.getText();
+        String horaInicio = horaInicioTxt.getText();
+        String detalles = detallesTxt.getText();
+        Date date = fechaCalendar.getDate();
 
-        if (firstClanName.equals("") || secondClanName.equals("") || date == null) {
-            JOptionPane.showMessageDialog(null, "Empty fields");
-            clearTable();
+        if (nombre.equals("") || lugar.equals("") || horaFinal.equals("") || date == null
+                || horaInicio.equals("") || detalles.equals("")) {
+            
+            JOptionPane.showMessageDialog(null, "Favor de llenar los campos");
+            limpiarTabla();
             return;
         }
 
-        java.sql.Date startOn = new java.sql.Date(date.getTime());
-        War newWar = new War(
-                firstClanName,
-                secondClanName,
-                startOn
+        java.sql.Date fecha = new java.sql.Date(date.getTime());
+        
+        Evento nuevoEvento = new Evento(
+                nombre,
+                Time.valueOf(horaInicio),
+                Time.valueOf(horaFinal),
+                lugar,
+                fecha,
+                detalles
         );
 
-        database.insertWar(newWar);
-        clearTable();
+        if (database.insertarEvento(nuevoEvento)) {
+            JOptionPane.showMessageDialog(null, "Se insertó exitosamente");
+        } else {
+            JOptionPane.showMessageDialog(null, "Hubo un error, inténtelo ");
+        }
+    
+        limpiarTabla();
     }
 
-    void update() {
-        String firstClanName = firstClanNameTxt.getText();
-        String secondClanName = secondClanNameTxt.getText();
-        Date date = DateChooser.getDate();
+    private void update() {
+        String nombre = nombreTxt.getText();
+        String lugar = lugarTxt.getText();
+        String horaFinal = horaFinalTxt.getText();
+        String horaInicio = horaInicioTxt.getText();
+        String detalles = detallesTxt.getText();
+        Date date = fechaCalendar.getDate();
+
+        if (nombre.equals("") || lugar.equals("") || horaFinal.equals("") || date == null
+                || horaInicio.equals("") || detalles.equals("")) {
+            
+            JOptionPane.showMessageDialog(null, "Favor de llenar los campos");
+            limpiarTabla();
+            return;
+        }
 
         int row = dataTable.getSelectedRow();
         if (row < 0) {
-            JOptionPane.showMessageDialog(null, "Please, select a war");
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un registro");
             return;
         }
 
-        if (firstClanName.equals("") || secondClanName.equals("") || date == null) {
-            JOptionPane.showMessageDialog(null, "Empty fields");
-            clearTable();
-            return;
-        }
 
-        java.sql.Date startOn = new java.sql.Date(date.getTime());
-        War updatedWar = new War(
+        java.sql.Date fecha = new java.sql.Date(date.getTime());
+        Evento eventoActualizado = new Evento(
                 id,
-                firstClanName,
-                secondClanName,
-                startOn
+                nombre,
+                Time.valueOf(horaInicio),
+                Time.valueOf(horaFinal),
+                lugar,
+                fecha,
+                detalles
         );
 
-        database.updateWar(updatedWar);
-        clearTable();
+        database.actualizarEvento(eventoActualizado);
+        limpiarTabla();
     }
 
-    void delete() {
+    private void eliminar() {
         int selectedRow = dataTable.getSelectedRow();
 
         if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please, select a row");
-            clearTable();
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un registro");
+            limpiarTabla();
+            return;
         }
-        database.deleteWar(id);
-        JOptionPane.showMessageDialog(null, "Deleted");
-        clearTable();
+        database.eliminarEvento(id);
+        JOptionPane.showMessageDialog(null, "Eliminado");
+        limpiarTabla();
     }
 
-    void clearTable() {
-        dataTable.setModel(new DefaultTableModel(null, new String[]{"ID", "FIRST CLAN NAME", "SECOND CLAN NAME", "START ON"}));
+    private void limpiarTabla() {
+        dataTable.setModel(new DefaultTableModel(null, new String[]{"ID", "Nombre", "Fecha", "Lugar", "Hora inicio", "Hora final", "Detalles"}));
     }
 
-    void clearTextbox() {
-        idtxt.setText("");
-        firstClanNameTxt.setText("");
-        secondClanNameTxt.setText("");
-        txtSearch.setText("");
-        DateChooser.setDate(null);
+    private void limpiarTextbox() {
+        nombreTxt.setText("");
+        lugarTxt.setText("");
+        horaFinalTxt.setText("");
+        horaInicioTxt.setText("");
+        detallesTxt.setText("");
+        fechaCalendar.setDate(null);
     }
 
-    void load() {
-        clearTable();
-        setData("");
+    private void recargar() {
+        limpiarTabla();
+        cargarTabla("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser DateChooser;
     private javax.swing.JButton addBtn;
     private javax.swing.JTable dataTable;
     private javax.swing.JButton deleteBtn;
-    private javax.swing.JTextField firstClanNameTxt;
-    private javax.swing.JTextField idtxt;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField detallesTxt;
+    private com.toedter.calendar.JDateChooser fechaCalendar;
+    private javax.swing.JTextField horaFinalTxt;
+    private javax.swing.JSpinner horaInicioTxt;
+    private com.toedter.calendar.JCalendar jCalendar1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton loadBtn;
+    private javax.swing.JTextField lugarTxt;
+    private javax.swing.JTextField nombreTxt;
     private javax.swing.JComboBox<String> searchComboBox;
-    private javax.swing.JTextField secondClanNameTxt;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
