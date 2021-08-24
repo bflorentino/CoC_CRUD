@@ -91,18 +91,6 @@ public class CrudViewTesting extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel3.setText("Lugar:");
 
-        nombreTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreTxtActionPerformed(evt);
-            }
-        });
-
-        lugarTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lugarTxtActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel4.setText("Fecha del evento:");
 
@@ -132,7 +120,7 @@ public class CrudViewTesting extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,11 +210,6 @@ public class CrudViewTesting extends javax.swing.JFrame {
             }
         });
 
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
-            }
-        });
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKeyReleased(evt);
@@ -246,7 +229,7 @@ public class CrudViewTesting extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+                .addContainerGap(93, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,21 +311,24 @@ public class CrudViewTesting extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(13, 13, 13))
         );
 
         jPanel1.getAccessibleContext().setAccessibleName("Formulario de datos");
@@ -382,38 +368,31 @@ public class CrudViewTesting extends javax.swing.JFrame {
         cargarTabla(txtSearch.getText());
     }//GEN-LAST:event_txtSearchKeyReleased
 
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchActionPerformed
-
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
         recargar();
         limpiarTextbox();
     }//GEN-LAST:event_loadBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        eliminar();
-        cargarTabla("");
- 
+        
+        if (eliminar()){
+            cargarTabla("");
+        }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
-        update();
-        cargarTabla("");
+        
+        if(update()){
+            cargarTabla("");
+        }
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        insertar();
-        cargarTabla("");
+        
+        if (insertar()){
+         cargarTabla("");
+        }
     }//GEN-LAST:event_addBtnActionPerformed
-
-    private void lugarTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lugarTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lugarTxtActionPerformed
-
-    private void nombreTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreTxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -468,7 +447,7 @@ public class CrudViewTesting extends javax.swing.JFrame {
         return "ID";
     }
 
-    private void insertar() {
+    private boolean insertar() {
 
         String horaInicio = formater.format(horaInicioTxt.getValue());
         String horaFinal = formater.format(horaFinalTxt.getValue());
@@ -481,6 +460,7 @@ public class CrudViewTesting extends javax.swing.JFrame {
                 || horaInicio.equals("") || detalles.equals("")) {
 
             JOptionPane.showMessageDialog(null, "Favor de llenar los campos");
+            return false;
         } 
         else  {
             java.sql.Date fecha = new java.sql.Date(date.getTime());
@@ -499,16 +479,18 @@ public class CrudViewTesting extends javax.swing.JFrame {
                 if (database.insertarEvento(nuevoEvento)) {
                     JOptionPane.showMessageDialog(null, "Se insertó exitosamente");
                     limpiarTextbox();
+                    return true; 
                 } 
                 else {
                     JOptionPane.showMessageDialog(null, "Hubo un error al insertar los registros.");
+                    return false;
                 }
             }
+            return false;
         }
-         limpiarTabla();
     }
 
-    private void update() {
+    private boolean update() {
         
         String nombre = nombreTxt.getText();
         String lugar = lugarTxt.getText();
@@ -520,12 +502,14 @@ public class CrudViewTesting extends javax.swing.JFrame {
         int row = dataTable.getSelectedRow();
         if (row < 0) {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione un registro");
+            return false;
         }
 
        else if (nombre.equals("") || lugar.equals("") || horaFinal.equals("") || date == null
                 || horaInicio.equals("") || detalles.equals("")) {
             
             JOptionPane.showMessageDialog(null, "Favor de llenar los campos");
+            return false;
         }
        
         else if (validarHora(Time.valueOf(horaInicio), Time.valueOf(horaFinal))) {
@@ -544,27 +528,31 @@ public class CrudViewTesting extends javax.swing.JFrame {
             if (database.actualizarEvento(eventoActualizado)){
                 JOptionPane.showMessageDialog(null, "Evento actualizado");
                 limpiarTextbox();
+                return true;
             }
             else{
                 JOptionPane.showMessageDialog(null, "Hubo un error al actualizar el evento");
+                return false;
             }
         }
-         limpiarTabla();
+         return false;
     }
 
-    private void eliminar() {
+    private boolean eliminar() {
         int selectedRow = dataTable.getSelectedRow();
 
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione un registro");
+            return false;
         }
         
         else if ( JOptionPane.showConfirmDialog(null, "Esta seguro de que desea eliminar este registro?") == 0) {
                 database.eliminarEvento(id);
                 JOptionPane.showMessageDialog(null, "Eliminado");
                 limpiarTextbox();
+                return true;
             }
-        limpiarTabla();
+        return false;
     }
 
     private void limpiarTabla() {
@@ -581,7 +569,7 @@ public class CrudViewTesting extends javax.swing.JFrame {
         horaInicioTxt.setValue(Time.valueOf(time.format(formatter)));
         jTextArea1.setText("");
         fechaCalendar.setDate(null);
-        
+        txtSearch.setText("");
         formatearSpinners();
     }
 
